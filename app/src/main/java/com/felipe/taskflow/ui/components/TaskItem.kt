@@ -13,13 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.felipe.taskflow.data.Task
 
 @Composable
-fun TaskItem(
-    title: String,
-    time: String,
-    isCompleted: Boolean
-) {
+fun TaskItem(task: Task) {
     Card(
         modifier = Modifier.padding(horizontal = 20.dp),
         colors = CardDefaults.cardColors(
@@ -39,18 +36,18 @@ fun TaskItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = title,
+                    text = task.title,
                     style = MaterialTheme.typography.titleMedium
                 )
 
                 Text(
-                    text = if (isCompleted) "Concluída" else "Pendente",
+                    text = if (task.isCompleted) "Concluída" else "Pendente",
                     style = MaterialTheme.typography.labelMedium
                 )
             }
 
             Text(
-                text = time,
+                text = task.time,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

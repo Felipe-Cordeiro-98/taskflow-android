@@ -16,11 +16,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.felipe.taskflow.data.Task
 import com.felipe.taskflow.ui.components.TaskItem
 import com.felipe.taskflow.ui.theme.TaskFlowTheme
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
+    val tasks = listOf(
+        Task(
+            title = "Estudar Kotlin",
+            time = "Hoje • 14:00",
+            isCompleted = false
+        ),
+        Task(
+            title = "Desenvolver TaskFlow",
+            time = "Hoje • 10:00",
+            isCompleted = true
+        )
+    )
+
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -149,17 +163,9 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                TaskItem(
-                    title = "Estudar Kotlin",
-                    time = "Hoje • 14:00",
-                    isCompleted = false
-                )
-
-                TaskItem(
-                    title = "Desenvolver TaskFlow",
-                    time = "Hoje • 10:00",
-                    isCompleted = true
-                )
+                tasks.forEach { task ->
+                    TaskItem(task = task)
+                }
             }
         }
     }
