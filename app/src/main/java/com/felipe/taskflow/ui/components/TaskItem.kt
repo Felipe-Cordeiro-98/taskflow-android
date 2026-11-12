@@ -16,8 +16,9 @@ import androidx.compose.ui.unit.dp
 import com.felipe.taskflow.data.Task
 
 @Composable
-fun TaskItem(task: Task) {
+fun TaskItem(task: Task, onTaskClick: () -> Unit) {
     Card(
+        onClick = onTaskClick,
         modifier = Modifier.padding(horizontal = 20.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface

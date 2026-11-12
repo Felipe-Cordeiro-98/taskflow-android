@@ -12,6 +12,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,18 +24,30 @@ import com.felipe.taskflow.ui.theme.TaskFlowTheme
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    val tasks = listOf(
-        Task(
-            title = "Estudar Kotlin",
-            time = "Hoje • 14:00",
-            isCompleted = false
-        ),
-        Task(
-            title = "Desenvolver TaskFlow",
-            time = "Hoje • 10:00",
-            isCompleted = true
+    val tasks = remember {
+        mutableStateListOf(
+            Task(
+                title = "Estudar Kotlin",
+                time = "Hoje • 14:00",
+                isCompleted = false
+            ),
+            Task(
+                title = "Desenvolver TaskFlow",
+                time = "Hoje • 10:00",
+                isCompleted = true
+            )
         )
-    )
+    }
+
+    fun updateTask(task: Task) {
+        val index = tasks.indexOf(task)
+
+        if (index != -1) {
+            tasks[index] = task.copy(
+                isCompleted = !task.isCompleted
+            )
+        }
+    }
 
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -164,7 +178,12 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 tasks.forEach { task ->
-                    TaskItem(task = task)
+                    TaskItem(
+                        task = task,
+                        onTaskClick = {
+                            updateTask(task)
+                        }
+                    )
                 }
             }
         }
